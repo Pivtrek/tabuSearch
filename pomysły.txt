@@ -1,0 +1,41 @@
+warunek stopu: liczba iteracji, czas, liczba iteracji bez poprawy
+
+skupić na efektywnym zapamiętywaniu listy tabu search - pamiętać indeksy zamienionych miast
+i przeszukiwaniu, przeszukiwanie listy tabu search najważniejsze na liście!!!
+
+do przeszukiwań można działać na wątkach
+
+typowy błąd - brak sprawdzania, że ostatnio nie mamy poprawy -> utknięcie w jakimś miejscu,można wtedy kombinować, wrócić do wcześniejszego miejsca i pamiętać ostatnie przejście, żeby ponownie go nie wybrał
+
+zapamiętujemy najlepsze rozwiązanie, a nie ostatnie miejsce w którym jesteśmy
+
+można korzystać z losowości, ale należy powtórzyć wtedy kilka razy i sprawdzić jakie jest maksymalne rozwiązanie, minimalne, średnia
+
+pewne fragmenty true, false -> badanie algorytmu pod kątem wybranych rozwiązań
+potem porównanie w stosunku do wcześniej zaimplementowanych algorytmów
+
+Przejrzeć rozwiązanie tabu search Glover.
+
+
+Projekt:
+1. Wybór rozw. pocz. : 2-opt, losowe
+2. stworzenie listy tabu
+3. wygenerowanie otoczenia
+4. odnalezienie najlepszego rozw. z otoczenia i umieszczenie go na liście tabu
+5. ustalenie warunku końca (liczba iteracji, czas, liczba iteracji bez poprawy.
+
+Co potrzebujemy:
+- plik z generowaniem macierzy sąsiedztwa
+- funkcje która wyznacza losową ścieżkę
+- funkcja licząca długość ścieżki
+- 2-opt
+
+- globalna lista tabu 
+- globalnie rozw. najlepsze znalezione dotychczas
+
+- funkcja wyznaczająca sąsiedztwo(invert z 2-opt)
+- funkcja celu z dodaniem rozw. do listy tabu
+- funkcja przeszukiwania listy tabu
+- funkcja sprawdzenia tabu czy nie za długa, jeśli tak to np. usuwanie najstarszego rozwiązania
+- funkcja sprawdzająca warunek końca (jeśli potrzebny)
+- mechanizm wykrywania stagnacji
