@@ -75,11 +75,8 @@ class GenerateGraph:
             if(distance<min_dist):
                 min_dist=distance
                 path=vertex.copy()
-        print("Droga: ",min_dist)
-        print("Cykl: ",path)
-        #self.test_cost(path)
-        if self.edge_weight_format == 'EUC_2D':
-            self.draw_solution(path)
+
+        return min_dist, path
 
     def two_opt(self):
         path = [x for x in range(self.dimension)]
@@ -96,12 +93,11 @@ class GenerateGraph:
                         best = new_route
                         improved = True
             path = best
-        print("Droga: ",self.cost(best))
-        print("Cykl: ", path)
-        #self.test_cost(path)
-        if self.edge_weight_format == 'EUC_2D':
-            self.draw_solution(best)
-        return self.matrix
+
+        droga = self.cost(best)
+
+        return droga, path
+
 
     def cost(self,vertex):
         distance=0
