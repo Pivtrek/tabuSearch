@@ -18,7 +18,7 @@ Przejrzeć rozwiązanie tabu search Glover.
 
 
 Projekt:
-1. Wybór rozw. pocz. : 2-opt, losowe
+1. Wybór rozw. pocz. : 2-opt, losowe(k-random)
 2. stworzenie listy tabu
 3. wygenerowanie otoczenia
 4. odnalezienie najlepszego rozw. z otoczenia i umieszczenie go na liście tabu
