@@ -109,7 +109,6 @@ class GenerateGraph:
         return distance
 
     def generate_path(self, flag):
-
         if(flag == 0):
             self.k_random_method()
         if(flag == 1):
