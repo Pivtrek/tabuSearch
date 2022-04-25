@@ -2,6 +2,10 @@ import random, sys
 
 class GenerateGraph:
     matrix=[]
+    supported_formats = ['FULL_MATRIX', 'EUC_2D', 'LOWER_DIAG_ROW']
+    supported_format_keys = ['EDGE_WEIGHT_FORMAT', 'EDGE_WEIGHT_TYPE']
+    supported_header_delimiters = ['NODE_COORD_SECTION', 'EDGE_WEIGHT_SECTION']
+    edge_weight_format = ""
 
 
     def __init__(self, variant, dimension, seed, upper_bound=100):
@@ -21,6 +25,7 @@ class GenerateGraph:
                     else:
                         row.append(random.randint(1,self.upper_bound))
                 self.matrix.append(row)
+
         elif(self.variant=='EUC_2D'):
             for i in range(self.dimension):
                 row=[]
@@ -55,6 +60,9 @@ class GenerateGraph:
             for item in self.supported_formats:
                 print(item)
             return
+
+
+
 
     def k_random_method(self):
         k=100
@@ -94,10 +102,7 @@ class GenerateGraph:
                         improved = True
             path = best
 
-        droga = self.cost(best)
-
-        return droga, path
-
+        return path
 
     def cost(self,vertex):
         distance=0
@@ -113,3 +118,33 @@ class GenerateGraph:
             self.k_random_method()
         if(flag == 1):
             self.two_opt()
+
+    def neighbourhood(self):
+
+        save = []
+
+        path = self.two_opt()
+        firstCost = self.cost(path)
+
+        save.append([0,0,firstCost])
+
+
+        for i in range(len(path)-1):
+            for j in range(len(path)-(i+1)):
+                path[i:(i+j+2)] = path[i:(i+j+2)][::-1]
+                Cost = self.cost(path)
+                save.append([i,i+j+1,Cost])
+                path[i:(i+j+2)] = path[i:(i+j+2)][::-1]
+
+        print(save)
+        return save
+
+
+
+
+
+
+
+
+
+
