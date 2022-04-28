@@ -1,50 +1,69 @@
+import generateNeighbours
+
+
 def getNeighborhood(graph, solution):
-    pass
+    save = []
 
+    path = solution
+    firstCost = graph.cost(path) #nie trzeba liczyc drugi raz, można przekazać
+    save.append([0,0,firstCost])
 
-def tabu(graph, dist, firstPath, iterations, maxSizeTabu):
-    solution = firstPath
-    bestSolutionInProgram = solution
+    for i in range(len(path)-1):
+        for j in range(len(path)-(i+1)):
+            path[i:(i+j+2)] = path[i:(i+j+2)][::-1]
+            Cost = graph.cost(path)
+
+            save.append([i,i+j+1,Cost])
+            path[i:(i+j+2)] = path[i:(i+j+2)][::-1]
+
+    print(save)
+    return save
+
+def decodeNeighbour(solution, candidate):
+    path = []
+    index1 = candidate[0]
+    index2 = candidate[1]
+    # solution = [0, 1, 2, 3, 4, 5]
+    # index1 = 0
+    # index2 = 4
+    for i in range(0, index1):
+        path.append(solution[i])
+    for i in range(index2, index1-1, -1):
+        path.append(solution[i])
+    for i in range(index2+1, len(solution)):
+        path.append(solution[i])
+
+    print(path)
+    return path
+
+def getBestCandidate(neighborhood, tabuList, solution):
+    bestCandidate = neighborhood[0]
+    for i in range(0,len(neighborhood)): #dla każdego sąsiada
+        neighbour = decodeNeighbour(solution, neighborhood[i])
+        if (neighbour not in tabuList) and (neighborhood[i][2] < bestCandidate[2]): #mniejszy cost
+            bestCandidate = neighbour
+
+    return neighbour
+
+def tabu(graph, firstPath, iterations, maxSizeTabu):
+    solution = firstPath #bieżące rozw
+    bestSolutionInProgram = solution #najlepsze do tej pory
     tabuList = list()
-    bestCost = dist
+    tabuList.append(solution)
     numberOfIterations = 0
 
-    while numberOfIterations < iterations :
-        neighborhood = getNeighborhood(graph, solution)
-        bestSolution = neighborhood[0] # best solution in this iteration
-        #neighborhood jako posortowana lista invertowanych dwóch indeksów i kosztu tak uzyskanej ścieżki
-        bestCostIndex = len(bestSolution) - 1
+    while numberOfIterations < iterations: # wypróbować inne warunki stopu
+        neighborhood = getNeighborhood(graph, solution) #w czasie generowania neighborhood można by nie liczyć cost
+        #można by najpierw usunąc z neighborhood te elemnty ktore są w tabu i dopiero liczyć koszty
 
-        ifNewSolutionFound = False # uniemożliwia przyjęcie rozwiązania wcześniejszego
-        while ifNewSolutionFound is False:
-            i = 0
-    #         first_exchange_node, second_exchange_node = [], []
-    #         n_opt_counter = 0
-    #         while i < len(best_solution):
-    #             if best_solution[i] != solution[i]:
-    #                 first_exchange_node.append(best_solution[i])
-    #                 second_exchange_node.append(solution[i])
-    #                 n_opt_counter += 1
-    #                 if n_opt_counter == n_opt:
-    #                     break
-    #             i = i + 1
-    #
-    #         exchange = first_exchange_node + second_exchange_node
-    #         if first_exchange_node + second_exchange_node not in tabu_list and second_exchange_node + first_exchange_node not in tabu_list:
-    #             tabu_list.append(exchange)
-    #             found = True
-    #             solution = best_solution[:-1]
-    #             cost = neighborhood[index_of_best_solution][best_cost_index]
-    #             if cost < best_cost:
-    #                 best_cost = cost
-    #                 best_solution_ever = solution
-    #         elif index_of_best_solution < len(neighborhood):
-    #             best_solution = neighborhood[index_of_best_solution]
-    #             index_of_best_solution = index_of_best_solution + 1
-    #
-    #     while len(tabu_list) > size:
-    #         tabu_list.pop(0)
-    #
-    #     count = count + 1
-    # best_solution_ever.pop(-1)
-    # return best_solution_ever, best_cost
+        solution = getBestCandidate(neighborhood, tabuList, solution) # best solution in this iteration
+        tabuList.append(solution)
+        if (graph.cost(solution) < graph.cost(bestSolutionInProgram)):
+            bestSolutionInProgram = solution
+
+        if(len(tabuList) > maxSizeTabu):
+            tabuList.pop(0)
+
+        numberOfIterations += 1
+
+    return bestSolutionInProgram, graph.cost(bestSolutionInProgram)

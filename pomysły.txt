@@ -39,3 +39,6 @@ Co potrzebujemy:
 - funkcja sprawdzenia tabu czy nie za długa, jeśli tak to np. usuwanie najstarszego rozwiązania
 - funkcja sprawdzająca warunek końca (jeśli potrzebny)
 - mechanizm wykrywania stagnacji
+
+bierzemy około 10% z sąsiedztwa,
+dobór iteracji, w zależności od czasu

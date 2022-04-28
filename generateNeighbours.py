@@ -11,7 +11,7 @@ class GenerateGraph:
     def __init__(self, variant, dimension, seed, upper_bound=100):
         self.variant = variant
         self.dimension = dimension
-        self.seed=random.seed(seed)
+        self.seed= random.randrange(seed)
         self.upper_bound=upper_bound
         self.generate()
 
@@ -92,8 +92,10 @@ class GenerateGraph:
         improved = True
         while improved:
             improved = False
+            #path = [1, 2, 3, 4, 5]
             for i in range(0, len(path)-1):
                 for j in range(i+1, len(path)):
+                    #print(i, j)
                     if j-i == 1: continue
                     new_route = path[:]
                     new_route[i:j] = reversed(new_route[i:j])
@@ -129,10 +131,13 @@ class GenerateGraph:
         save.append([0,0,firstCost])
 
 
+        #path = [1, 2, 3, 4, 5]
         for i in range(len(path)-1):
             for j in range(len(path)-(i+1)):
+                #print(i, j)
                 path[i:(i+j+2)] = path[i:(i+j+2)][::-1]
                 Cost = self.cost(path)
+
                 save.append([i,i+j+1,Cost])
                 path[i:(i+j+2)] = path[i:(i+j+2)][::-1]
 
