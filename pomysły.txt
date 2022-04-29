@@ -40,5 +40,15 @@ Co potrzebujemy:
 - funkcja sprawdzająca warunek końca (jeśli potrzebny)
 - mechanizm wykrywania stagnacji
 
-bierzemy około 10% z sąsiedztwa,
-dobór iteracji, w zależności od czasu
+Do zrobienia:
+- implementacja tabulisty i jej efektywnego przeszukiwania
+- dodanie uniknięcia "zakleszczenia się algorytmu" ("ślepy zaułek", wszyscy sąsiedzi w tabu, duża liczba iteracji bez
+  poprawy (np. 500)) - wtedy nawrót do ostatniego dobrego rozwiązania, należy pamiętać conajmniej jedno które było po nim,
+  żeby nie pójść tam znowu, lub też wyszukiwać minimum lokalne
+- dodanie kryterium aspiracji (gdy rozw. jest w tabu, ale jest lepsze od obecnego - jakoś tak :) )
+- testy ("strojenie algorytmu") wykresy czasu, pamięci efektywności w zależności od tego co badamy, małe próbki, dobór:
+    długości listy tabu, warunku stopu(różna liczba iteracji, czas, określona liczba iteracji bez poprawy), procent
+    sąsiedztwa
+- testy porównawcze dostrojonego algorytmu z wcześniejszymi, większe próbki (czas, pamięć, efektywność) - można wykorzystać
+  częsciowo wcześniej zaimplementowane testy
+- (opcjonalnie) porównanie wersji short term memory z long term memory
