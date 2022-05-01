@@ -41,7 +41,7 @@ Co potrzebujemy:
 - mechanizm wykrywania stagnacji
 
 Do zrobienia:
-- implementacja tabulisty i jej efektywnego przeszukiwania
+- implementacja tabulisty i jej efektywnego przeszukiwania - zrobiona wersja z hashmapą
 - dodanie uniknięcia "zakleszczenia się algorytmu" ("ślepy zaułek", wszyscy sąsiedzi w tabu, duża liczba iteracji bez
   poprawy (np. 500)) - wtedy nawrót do ostatniego dobrego rozwiązania, należy pamiętać conajmniej jedno które było po nim,
   żeby nie pójść tam znowu, lub też wyszukiwać minimum lokalne
@@ -52,3 +52,4 @@ Do zrobienia:
 - testy porównawcze dostrojonego algorytmu z wcześniejszymi, większe próbki (czas, pamięć, efektywność) - można wykorzystać
   częsciowo wcześniej zaimplementowane testy
 - (opcjonalnie) porównanie wersji short term memory z long term memory
+- (opcjonalnie) pokazać dlaczego używam dictionary

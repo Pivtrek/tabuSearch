@@ -64,8 +64,8 @@ class GenerateGraph:
 
 
 
-    def k_random_method(self):
-        k=100
+    def k_random_method(self, k):
+        #k=100
         print("k: ",k)
         min_dist=sys.maxsize
         vertex=[x for x in range(self.dimension)]
